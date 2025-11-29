@@ -23,8 +23,11 @@ module.exports = {
 				reading: "#F27D35",
 				toRead: "#3586F1",
 				grayMedium: "#79859D",
-				grayBorderLigth: "#D5D9E3",
-				textForth: "#141B2E"
+				grayBorderLight: "#D5D9E3",
+				textForth: "#141B2E",
+				buttonHover: "#512593",
+				selectHover: "#EEF0F4",
+				hoverArrow: "#EBEFF1"
 
 			},
 			fontFamily: {

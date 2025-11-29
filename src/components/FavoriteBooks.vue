@@ -2,14 +2,20 @@
     <div class="p-6 gap-5 rounded-radius bg-gray max-w-[1360px] mt-[40px]">
         <div class="flex">
             <div class="font-inter font-bold text-xl">Favorite Books</div>
-            <div class="ml-auto flex items-center gap-3"><span class="text-textThird ">View All (13)</span> <span>
-                    <img src="@/assets/icons/arrow-left.svg" alt="left" /></span>
-                <span><img src="@/assets/icons/arrow-right.svg" alt="right" /></span>
-
+            <div class="ml-auto flex items-center gap-3">
+                <span class="text-textThird">View All (13)</span>
+                <span
+                    class="p-3 rounded-full border border-grayBorderLight hover:bg-hoverArrow cursor-pointer transition w-10 h-10">
+                    <img src="@/assets/icons/arrow-left.svg" alt="left" class="w-3 h-3" />
+                </span>
+                <span
+                    class="p-3 rounded-full border border-grayBorderLight hover:bg-hoverArrow cursor-pointer transition w-10 h-10">
+                    <img src="@/assets/icons/arrow-right.svg" alt="right" class="w-3 h-3" />
+                </span>
             </div>
         </div>
         <div class="grid grid-cols-3 gap-6">
-            <div class="col-span-1 text-textThird">
+            <div class="col-span-1 text-textThird leading-[140%]">
                 When Maya’s brother decides to get married in Taormina, she and Conor end up stuck together in a
                 romantic Sicilian villa for over a week. There, on the beautiful Ionian coast, between ancient ruins,
                 delicious foods, and natural caves, Maya realizes that Conor might be hiding something from her. And as

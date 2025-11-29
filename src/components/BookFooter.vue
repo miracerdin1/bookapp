@@ -1,5 +1,5 @@
 <template>
-    <div class="border-t border-grayBorderLigth py-[40px] px-[114px] mt-[120px]">
+    <div class="border-t border-grayBorderLight py-[40px] px-[114px] mt-[120px]">
         <div class="flex justify-between items-start">
 
             <div class="flex items-center gap-3 cursor-pointer">
@@ -44,7 +44,7 @@
 
 
         </div>
-        <div class="border-t border-grayBorderLigth flex justify-between h-[54px] flex items-end">
+        <div class="border-t border-grayBorderLight flex justify-between h-[54px] flex items-end">
             <div>
                 <a href="#">
                     Commercial Terms & Conditions

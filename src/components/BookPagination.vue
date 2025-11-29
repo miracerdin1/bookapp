@@ -18,8 +18,8 @@ import SelectValue from './ui/select/SelectValue.vue';
     <div class="flex flex-col gap-6">
         <div class="flex justify-between items-center">
             <div class="flex gap-3 items-center">
-                <Select class="border-grayBorderLigth ">
-                    <SelectTrigger class="w-[180px] rounded-lg border-grayBorderLigth w-[200px] h-[44px]">
+                <Select class="border-grayBorderLight ">
+                    <SelectTrigger class="w-[180px] rounded-lg border-grayBorderLight w-[200px] h-[44px]">
                         <SelectValue class="text-textThird" placeholder="Bulk actions" />
                     </SelectTrigger>
                     <SelectContent class="bg-white border border-gray-200 rounded-md shadow-md">
@@ -27,15 +27,15 @@ import SelectValue from './ui/select/SelectValue.vue';
                         </SelectGroup>
                     </SelectContent>
                 </Select>
-                <Button class="border border-grayBorderLigth w-[80px] h-[44px] rounded-lg text-textThird"
+                <Button class="border border-grayBorderLight w-[80px] h-[44px] rounded-lg text-textThird"
                     variant="outline">Apply</Button>
                 <span class="text-textThird">Selected 3 entries</span>
             </div>
             <div class="flex flex-col gap-3">
                 <div class="flex gap-3 items-center justify-end">
                     <span class="text-textThird">Show</span>
-                    <Select class="border-grayBorderLigth ">
-                        <SelectTrigger class="w-[180px] rounded-lg border-grayBorderLigth w-[70px] h-[44px]">
+                    <Select class="border-grayBorderLight ">
+                        <SelectTrigger class="w-[180px] rounded-lg border-grayBorderLight w-[70px] h-[44px]">
                             <SelectValue class="text-textThird" placeholder="25" />
                         </SelectTrigger>
                         <SelectContent class="bg-white border border-gray-200 rounded-md shadow-md">

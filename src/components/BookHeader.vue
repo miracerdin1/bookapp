@@ -12,7 +12,7 @@
             <nav class="flex items-center gap-3">
                 <a v-for="item in navItems" :key="item.label" href="#" :class="[
                     'text-base',
-                    item.active ? 'px-4 py-[10px] font-inter text-primary font-semibold border-b-2 border-secondary' : 'font-inter text-black '
+                    item.active ? 'px-4 py-[10px] text-primary font-semibold border-b-2 border-secondary' : 'text-black'
                 ]">
                     {{ item.label }}
                 </a>
@@ -22,14 +22,12 @@
         <!-- Right Buttons -->
         <div class="flex items-center gap-4">
             <!-- Add Book Form -->
-            <button
-                class="font-inter font-bold border-2 rounded-lg text-[14px] text-secondary py-[7px] px-4 border-secondary">
+            <button class="font-bold border-2 rounded-lg text-[14px] text-secondary py-[7px] px-4 border-secondary">
                 Add book form
             </button>
 
             <!-- Login Button -->
-            <Button
-                class="font-inter bg-secondary text-white px-6 py-2 rounded-lg text-[14px] hover:bg-primary-dark transition">
+            <Button class="bg-secondary text-white px-6 py-2 rounded-lg text-[14px] hover:bg-buttonHover transition">
                 Login
             </Button>
         </div>
