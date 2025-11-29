@@ -1,6 +1,7 @@
 <template>
   <Card class="border-none">
-    <CardContent class="p-0 flex gap-[22px] h-full " :class="isFavorite ? 'flex-row' : 'flex-col w-[200px]'">
+    <CardContent class="p-0 flex gap-[22px] h-full dark:text-textSecondary"
+      :class="isFavorite ? 'flex-row' : 'flex-col w-[200px]'">
       <div class="relative">
         <img :src="item.img" alt="img" class="w-full h-[258px] object-cover" />
         <span
@@ -12,31 +13,34 @@
 
       <div class="flex gap-[12px] px-2 flex-1 flex-col h-full justify-between">
         <div class="flex justify-between">
-          <span class="px-[10px] py-[6px] rounded-[4px] text-xs" :class="getStatusClass(item.status)">{{
+          <span class="px-[10px] py-[6px] rounded-[4px] text-xs " :class="getStatusClass(item.status)">{{
             getStatusText(item.status) }}
           </span>
-          <span class="font-bold text-lg leading-[100%]">{{ item.progress }}</span>
+          <span v-if="item.status === EnumBookStatus.InProgress" class="font-bold text-lg leading-[100%]">{{
+            item.progress }}</span>
         </div>
         <div class="font-bold text-sm">{{ item.explanation }}</div>
         <div class="flex flex-col gap-[12px]">
           <div class="flex  gap-[8px]" :class="isFavorite ? 'flex-col' : 'flex-row'">
-            <div class=" flex item-center gap-[6px] text-textThird  text-sm font-medium">
-              <span class="flex items-center"><img src="@/assets/icons/user.svg" /></span>{{ item.author
+            <div class=" flex item-center gap-[6px] text-textThird  text-sm font-medium dark:text-textSecondary">
+              <span class="flex items-center "><img src="@/assets/icons/user.svg" /></span>{{ item.author
               }}
             </div>
-            <div class="text-textThird text-sm font-medium"> {{
-              `${item.readPage}pages` }}</div>
+            <div class="text-textThird text-sm font-medium dark:text-textSecondary"> {{
+              `${item.readPage} pages` }}</div>
           </div>
-          <div :class="isFavorite ? 'flex-row' : 'flex justify-end'">
+          <div :class="isFavorite ? 'flex flex-row' : 'flex justify-end'" class="gap-2">
             <Button variant="outline" class="bg-secondary hover:bg-buttonHover text-white p-[10px] w-full"
               @click="openModal">
               Update Info
             </Button>
+
+            <icon-thrash @click="deleteItem" />
           </div>
         </div>
       </div>
     </CardContent>
-    <book-form-modal v-model:open="isModalOpen" :form-data="formData" />
+    <book-form-modal v-if="isModalOpen" v-model:open="isModalOpen" :form-data="formData" />
   </Card>
 </template>
 
@@ -48,10 +52,13 @@ import blackHeart from '@/assets/icons/black-heart.svg';
 import Card from './ui/card/Card.vue';
 import CardContent from './ui/card/CardContent.vue';
 import BookFormModal from './BookFormModal.vue';
-import { ref, shallowRef } from 'vue';
+import { ref, shallowRef, watch } from 'vue';
 import { useBooksStore } from '@/stores/books';
+import IconThrash from './icons/IconThrash.vue';
+import { useBookForm } from '@/composables/useBookForm';
 
 const booksStore = useBooksStore()
+const { deleteBook } = useBookForm()
 
 const props = defineProps<{
   item: BookItemModel;
@@ -70,6 +77,10 @@ function onFavorite(id: number) {
   booksStore.toggleFavorite(id)
 }
 
+const deleteItem = () => {
+  deleteBook(props.item.id)
+}
+
 const getStatusClass = (status: EnumBookStatus) => {
   if (status === EnumBookStatus.Completed) return 'bg-completed';
   if (status === EnumBookStatus.InProgress) return 'bg-reading text-white';
@@ -84,5 +95,14 @@ const getStatusText = (status: EnumBookStatus) => {
   return '';
 };
 
+watch(
+  () => props.item,
+  (val) => {
+    if (val) {
+      formData.value = { ...val }
+    }
+  },
+  { deep: true }
+)
 
 </script>

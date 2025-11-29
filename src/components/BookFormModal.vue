@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, shallowRef } from 'vue'
+import { computed, onMounted, ref, shallowRef, watch } from 'vue'
 import { Button } from '@/components/ui/button'
 import {
     Dialog,
@@ -16,6 +16,8 @@ import { BookItemModel } from '@/types'
 import bookImg from '@/assets/images/Sun Rise Of The Reaping.png'
 import { DEFAULT_FORM_DATA, useBookForm } from '@/composables/useBookForm'
 
+const { addBook, updateBook } = useBookForm()
+
 const props = defineProps<{
     open?: boolean,
     formData?: BookItemModel
@@ -30,6 +32,15 @@ const formData = ref<Partial<BookItemModel>>({
 })
 
 const imagePreview = shallowRef<string>(bookImg)
+const titleError = shallowRef('')
+
+const booAddButton = computed(() =>
+    props.formData?.id ? 'Update book info' : 'Add book'
+)
+
+const isTitleInvalid = computed(() => {
+    return !formData.value.title?.trim()?.length && !!titleError.value
+})
 
 function handleImageUpload(e: Event) {
     const target = e.target as HTMLInputElement
@@ -47,9 +58,16 @@ function handleImageUpload(e: Event) {
 }
 
 function handleSubmit(e: Event) {
-    e.preventDefault()
+    e.preventDefault();
+    if (!formData.value.title?.trim()) {
+        titleError.value = 'Book title is required'
+        return;
+    };
 
-    useBookForm().submitBook(formData.value)
+    titleError.value = ''
+    formData.value.id
+        ? updateBook(formData.value)
+        : addBook(formData.value)
     resetForm();
     emit('update:open', false)
 }
@@ -59,12 +77,15 @@ function resetForm() {
     imagePreview.value = bookImg
 }
 
-onMounted(() => {
-    if (props.formData) {
-        formData.value = { ...props.formData }
-        imagePreview.value = props.formData.img
+
+watch(() => props.formData, (val) => {
+    if (val) {
+        formData.value = { ...val }
+        imagePreview.value = val.img
     }
-})
+}, { immediate: true })
+
+
 </script>
 
 <template>
@@ -73,9 +94,11 @@ onMounted(() => {
             <DialogTrigger as-child>
 
             </DialogTrigger>
-            <DialogContent class="sm:max-w-[425px] bg-white">
+            <DialogContent class="sm:max-w-[425px] md:max-w-[484px] bg-white dark:text-neutral-100 dark:bg-black">
                 <DialogHeader>
-                    <DialogTitle class="font-bold text-base text-textThird border-b pb-3 border-b-grayBorderLight">Book
+                    <DialogTitle
+                        class="font-bold text-base text-textThird border-b pb-3 border-b-grayBorderLight dark:text-neutral-100">
+                        Book
                         entry form
                     </DialogTitle>
                     <DialogDescription class="font-roboto text-sm">
@@ -84,32 +107,36 @@ onMounted(() => {
                 </DialogHeader>
                 <div class="grid gap-4">
                     <div class="flex flex-col gap-2">
-                        <label class="text-sm font-medium text-textThird">Book Cover</label>
-                        <div class="flex items-center gap-4">
+                        <label class="text-sm font-medium text-textThird dark:text-neutral-100">Book Cover</label>
+                        <div class="flex items-center gap-4 ">
                             <img :src="imagePreview" alt="Book cover preview"
                                 class="w-20 h-28 object-cover rounded border border-grayBorderLight" />
                             <Input id="image" type="file" accept="image/*" @change="handleImageUpload"
-                                class="flex-1 rounded-lg border h-11 border-grayBorderLight text-textThird" />
+                                class="flex-1 rounded-lg border h-11 border-grayBorderLight text-textThird dark:text-neutral-100" />
                         </div>
                     </div>
 
-                    <Input id="name-1" v-model="formData.title" placeholder="Book title"
-                        class="rounded-lg border h-11 border-grayBorderLight text-textThird" />
+                    <Input req id="name-1" v-model="formData.title" placeholder="Book title"
+                        class="rounded-lg border h-11 border-grayBorderLight text-textThird dark:bg-neutral-900 dark:text-neutral-100 "
+                        :class="{ 'border-red-500': isTitleInvalid }" />
+                    <p v-if="isTitleInvalid" class="text-red-500 text-xs mt-1">
+                        {{ titleError }}
+                    </p>
                     <Input id="author-1" v-model="formData.author" placeholder="Author"
-                        class="rounded-lg border h-11 border-grayBorderLight text-textThird" />
+                        class="rounded-lg border h-11 border-grayBorderLight text-textThird dark:bg-neutral-900 dark:text-neutral-100" />
                     <Input id="pages" v-model.number="formData.totalPage" type="number"
                         placeholder="Total number of page"
-                        class="rounded-lg border h-11 border-grayBorderLight text-textThird" />
+                        class="rounded-lg border h-11 border-grayBorderLight text-textThird dark:bg-neutral-900 dark:text-neutral-100" />
                     <book-status-select v-model="formData.status" hideAll />
                     <Input id="readPage" v-model.number="formData.readPage" type="number"
                         placeholder="Number of pages read"
-                        class="rounded-lg border h-11 border-grayBorderLight text-textThird" />
+                        class="rounded-lg border h-11 border-grayBorderLight text-textThird dark:bg-neutral-900 dark:text-neutral-100" />
                 </div>
                 <DialogFooter>
                     <Button type="submit"
-                        class="w-full bg-secondary text-white px-6 py-2 rounded-lg text-[14px] hover:bg-buttonHover transition"
+                        class="w-full bg-secondary text-white px-6 py-2 rounded-lg text-[14px] hover:bg-buttonHover  dark:text-neutral-100"
                         @click="handleSubmit">
-                        Add book
+                        {{ booAddButton }}
                     </Button>
                 </DialogFooter>
             </DialogContent>
