@@ -6,20 +6,8 @@
         <InputGroup class="w-[350px] h-[44px] border-grayBorderLight text-textThird">
           <InputGroupInput placeholder="Search" :icon="searchIcon" />
         </InputGroup>
-        <Select class="border-grayBorderLight">
-          <SelectTrigger class="w-[180px] border-grayBorderLight w-[200px] h-[44px] ">
-            <SelectValue class="text-textThird " placeholder="Reading status" />
-          </SelectTrigger>
-          <SelectContent class="bg-white border border-gray-200 rounded-md shadow-md border border-grayBorderLight">
-            <SelectGroup class="">
-              <select-item v-for="item in selectItems" :key="item.value" :value="item.value"
-                class=" hover:bg-selectHover hover:text-secondary">
-                {{ item.label }}
-              </select-item>
 
-            </SelectGroup>
-          </SelectContent>
-        </Select>
+        <book-status-select />
       </div>
     </div>
     <div class="flex flex-wrap gap-8">
@@ -30,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import { EnumBookStatus } from '@/types'
+import { BookItemModel, EnumBookStatus, SelectModel } from '@/types'
 import BookItem from './BookItem.vue'
 import { useBooks } from '@/composables/useBooks'
 import { ref } from 'vue';
@@ -39,39 +27,16 @@ import SecondCardImage from "@/assets/images/The Let Them.png"
 import InputGroupInput from './ui/input-group/InputGroupInput.vue';
 import searchIcon from '@/assets/icons/search.svg';
 import BookPagination from './BookPagination.vue';
-
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
-
+import BookStatusSelect from './BookStatusSelect.vue';
 import InputGroup from './ui/input-group/InputGroup.vue';
 
 const props = defineProps({
 
 })
 const emit = defineEmits(['edit', 'delete'])
-const selectItems = [
-  {
-    value: EnumBookStatus.Completed,
-    label: 'Completed'
-  },
-  {
-    value: EnumBookStatus.InProgress,
-    label: 'In Progress'
-  },
-  {
-    value: EnumBookStatus.NotStarted,
-    label: 'Not Started'
-  }
-]
 
-const bookItems = ref([
+
+const bookItems = ref<BookItemModel[]>([
   {
     id: 1,
     title: 'Item 1',
@@ -81,7 +46,8 @@ const bookItems = ref([
     explanation: "Dating and Dragons",
     user: "Tedd",
     readPage: 115,
-    progress: "%30"
+    progress: "%30",
+    isFavorite: true
   },
   {
     id: 2,
@@ -91,7 +57,8 @@ const bookItems = ref([
     status: EnumBookStatus.InProgress,
     explanation: "The Ten Thousand Doors of January",
     user: "Tedd",
-    readPage: 115
+    readPage: 115,
+    isFavorite: false
   },
   {
     id: 3,
@@ -102,7 +69,8 @@ const bookItems = ref([
     explanation: "Dating and Dragons",
     user: "Tedd",
     readPage: 115,
-    progress: "%30"
+    progress: "%30",
+    isFavorite: true
   },
   {
     id: 4,
@@ -112,7 +80,8 @@ const bookItems = ref([
     status: EnumBookStatus.Completed,
     explanation: "The Ten Thousand Doors of January",
     user: "Tedd",
-    readPage: 115
+    readPage: 115,
+    isFavorite: false
   },
   {
     id: 5,
@@ -123,7 +92,8 @@ const bookItems = ref([
     explanation: "The Ten Thousand Doors of January",
     user: "Tedd",
     readPage: 115,
-    progress: "%30"
+    progress: "%30",
+    isFavorite: true
   },
   {
     id: 6,
@@ -133,7 +103,8 @@ const bookItems = ref([
     status: EnumBookStatus.InProgress,
     explanation: "The Ten Thousand Doors of January",
     user: "Tedd",
-    readPage: 115
+    readPage: 115,
+    isFavorite: false
   },
   {
     id: 7,
@@ -143,7 +114,8 @@ const bookItems = ref([
     status: EnumBookStatus.InProgress,
     explanation: "The Ten Thousand Doors of January",
     user: "Tedd",
-    readPage: 115
+    readPage: 115,
+    isFavorite: true
   },
   {
     id: 8,
@@ -153,7 +125,8 @@ const bookItems = ref([
     status: EnumBookStatus.InProgress,
     explanation: "The Ten Thousand Doors of January",
     user: "Tedd",
-    readPage: 115
+    readPage: 115,
+    isFavorite: false
   },
   {
     id: 9,
@@ -163,7 +136,7 @@ const bookItems = ref([
     status: EnumBookStatus.InProgress,
     explanation: "The Ten Thousand Doors of January",
     user: "Tedd",
-    readPage: 115
+    readPage: 115, isFavorite: true
   },
   {
     id: 10,
@@ -173,7 +146,8 @@ const bookItems = ref([
     status: EnumBookStatus.Completed,
     explanation: "The Ten Thousand Doors of January",
     user: "Tedd",
-    readPage: 115
+    readPage: 115,
+    isFavorite: true
   },
   {
     id: 11,
@@ -183,7 +157,8 @@ const bookItems = ref([
     status: EnumBookStatus.Completed,
     explanation: "The Ten Thousand Doors of January",
     user: "Tedd",
-    readPage: 115
+    readPage: 115,
+    isFavorite: true
   },
   {
     id: 12,
@@ -193,7 +168,8 @@ const bookItems = ref([
     status: EnumBookStatus.Completed,
     explanation: "The Ten Thousand Doors of January",
     user: "Tedd",
-    readPage: 115
+    readPage: 115,
+    isFavorite: true
   },
 ])
 
