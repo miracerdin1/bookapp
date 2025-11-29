@@ -22,8 +22,14 @@
         <!-- Right Buttons -->
         <div class="flex items-center gap-4">
             <!-- Add Book Form -->
+            <Button variant="outline"
+                class="font-bold border-2 rounded-lg text-[14px] text-secondary py-[7px] px-4 border-secondary"
+                @click="isModalOpen = true">
 
-            <book-form-modal />
+                Add book form
+
+            </Button>
+            <book-form-modal v-model:open="isModalOpen" />
 
             <!-- Login Button -->
             <Button class="bg-secondary text-white px-6 py-2 rounded-lg text-[14px] hover:bg-buttonHover transition">
@@ -34,14 +40,17 @@
 </template>
 
 <script setup lang="ts">
-import Logo from '@/assets/icons/Logo.svg';
-import Button from './ui/button/Button.vue';
-import BookFormModal from './BookFormModal.vue';
+import { ref } from 'vue'
+import Logo from '@/assets/icons/Logo.svg'
+import Button from './ui/button/Button.vue'
+import BookFormModal from './BookFormModal.vue'
+
+const isModalOpen = ref(false)
 
 const navItems = [
     { label: "About", active: false },
     { label: "Books", active: true },
-];
+]
 </script>
 
 <style scoped lang="scss">
