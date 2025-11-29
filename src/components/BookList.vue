@@ -3,16 +3,17 @@
     <div class="flex justify-between">
       <div class="text-2xl font-bold">Books</div>
       <div class="flex gap-6">
-        <InputGroup class="w-[350px] h-[44px] border-grayBorderLigth text-textThird">
+        <InputGroup class="w-[350px] h-[44px] border-grayBorderLight text-textThird">
           <InputGroupInput placeholder="Search" :icon="searchIcon" />
         </InputGroup>
-        <Select class="border-grayBorderLigth">
-          <SelectTrigger class="w-[180px] border-grayBorderLigth w-[200px] h-[44px]">
+        <Select class="border-grayBorderLight">
+          <SelectTrigger class="w-[180px] border-grayBorderLight w-[200px] h-[44px] ">
             <SelectValue class="text-textThird " placeholder="Reading status" />
           </SelectTrigger>
-          <SelectContent class="bg-white border border-gray-200 rounded-md shadow-md">
-            <SelectGroup>
-              <select-item v-for="item in selectItems" :key="item.value" :value="item.value">
+          <SelectContent class="bg-white border border-gray-200 rounded-md shadow-md border border-grayBorderLight">
+            <SelectGroup class="">
+              <select-item v-for="item in selectItems" :key="item.value" :value="item.value"
+                class=" hover:bg-selectHover hover:text-secondary">
                 {{ item.label }}
               </select-item>
 
@@ -79,7 +80,8 @@ const bookItems = ref([
     status: EnumBookStatus.Completed,
     explanation: "Dating and Dragons",
     user: "Tedd",
-    readPage: 115
+    readPage: 115,
+    progress: "%30"
   },
   {
     id: 2,
@@ -99,7 +101,8 @@ const bookItems = ref([
     status: EnumBookStatus.NotStarted,
     explanation: "Dating and Dragons",
     user: "Tedd",
-    readPage: 115
+    readPage: 115,
+    progress: "%30"
   },
   {
     id: 4,
@@ -119,7 +122,8 @@ const bookItems = ref([
     status: EnumBookStatus.InProgress,
     explanation: "The Ten Thousand Doors of January",
     user: "Tedd",
-    readPage: 115
+    readPage: 115,
+    progress: "%30"
   },
   {
     id: 6,

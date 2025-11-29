@@ -1,12 +1,13 @@
 <template>
   <Card>
-    <CardContent class="flex gap-[22px] flex-col h-full">
-      <img :src="item.img" alt="img" class="w-[200px] h-[258px]" />
-      <div class="flex gap-[12px] px-2 w-[184px]" :class="isFavorite ? 'flex-row' : 'flex-col h-full justify-between'">
-        <div>
+    <CardContent class="flex gap-[22px] flex-col h-full w-[200px]">
+      <img :src="item.img" alt="img" class="w-full h-[258px] object-cover" />
+      <div class="flex gap-[12px] px-2 flex-1" :class="isFavorite ? 'flex-row' : 'flex-col h-full justify-between'">
+        <div class="flex justify-between">
           <span class="px-[10px] py-[6px] rounded-[4px] text-xs" :class="getStatusClass(item.status)">{{
             getStatusText(item.status) }}
           </span>
+          <span class="font-bold text-lg leading-[100%]">{{ item.progress }}</span>
         </div>
         <div class="font-bold text-sm">{{ item.explanation }}</div>
         <div class="flex flex-col gap-[12px]">
@@ -19,7 +20,7 @@
               `${item.readPage}pages` }}</div>
           </div>
           <div :class="isFavorite ? 'flex-row' : 'flex justify-end'">
-            <Button variant="outline" class="bg-secondary text-white p-[10px] w-full">
+            <Button variant="outline" class="bg-secondary hover:bg-buttonHover text-white p-[10px] w-full">
               Update Info
             </Button>
           </div>
@@ -36,7 +37,7 @@ import Button from './ui/button/Button.vue';
 
 const props = defineProps<{
   item: BookItemModel;
-  isFavorite: {
+  isFavorite?: {
     type: Boolean,
     default: false
   }
