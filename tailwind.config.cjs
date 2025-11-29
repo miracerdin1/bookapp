@@ -1,4 +1,5 @@
 module.exports = {
+	darkMode: 'class',
 	content: [
 		"./index.html",
 		"./src/**/*.{vue,js,ts,jsx,tsx}"
@@ -27,7 +28,10 @@ module.exports = {
 				textForth: "#141B2E",
 				buttonHover: "#512593",
 				selectHover: "#EEF0F4",
-				hoverArrow: "#EBEFF1"
+				hoverArrow: "#EBEFF1",
+				toastSuccess: "#E3FBF2",
+				toastText: "#097C69",
+				black: "#1A1A1A"
 
 			},
 			fontFamily: {

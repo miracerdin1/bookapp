@@ -1,17 +1,19 @@
 <template>
-    <div class="border-t border-grayBorderLight py-[40px] px-[114px] mt-[120px]">
+    <div class="border-t border-grayBorderLight py-[40px] px-[114px] mt-[120px] dark:text-textSecondary">
         <div class="flex justify-between items-start">
 
             <div class="flex items-center gap-3 cursor-pointer">
                 <img :src="Logo" alt="Bookapp Logo" class="w-size-md h-size-lg" />
-                <span class="font-nunito font-bold text-[20px] text-textPrimary title">Bookshop</span>
+                <span
+                    class="font-nunito font-bold text-[20px] text-textPrimary title dark:text-textSecondary">Bookshop</span>
             </div>
 
 
             <div class="flex gap-4 flex-col">
                 <div class="font-bold text-lg">Learn More</div>
                 <div class="flex flex-col ">
-                    <div v-for="value in learnMore" class="text-textForth text-sm leading-[30px] font-normal">
+                    <div v-for="value in learnMore"
+                        class="text-textForth text-sm leading-[30px] font-normal dark:text-textSecondary">
                         {{ value }}
                     </div>
 
@@ -21,7 +23,8 @@
             <div class="flex flex-col gap-[16px]">
                 <div class="font-bold text-lg">Menu</div>
                 <div class="flex flex-col ">
-                    <div v-for="value in menu" class="text-textForth text-sm leading-[30px] font-normal">
+                    <div v-for="value in menu"
+                        class="text-textForth text-sm leading-[30px] font-normal dark:text-textSecondary">
                         {{ value }}
                     </div>
 
@@ -31,13 +34,9 @@
             <div class="flex flex-col gap-[16px]">
                 <div class="font-bold text-lg">Social</div>
                 <div class="flex gap-[48px]">
-
                     <img src="@/assets/icons/facebook.svg" />
                     <img src="@/assets/icons/instagram.svg" />
                     <img src="@/assets/icons/youtube.svg" />
-
-
-
                 </div>
             </div>
 
@@ -86,11 +85,5 @@ const menu = [
     'Best Seller',
 
 ]
-const social = [
-    '@/assets/icons/facebook.svg',
 
-    '@/assets/icons/instagram.svg',
-
-    '@/assets/icons/youtube.svg',
-]
 </script>

@@ -33,11 +33,11 @@ export const useBooksStore = defineStore('books', () => {
     }, 300)
   }
 
-  function addBook(payload: Omit<BookItemModel, 'id'>) {
+  function addBook(payload: Omit<BookItemModel, 'id'> | BookItemModel) {
     const newBook: BookItemModel = {
       ...payload,
-      id: Date.now(),
-      isFavorite: false,
+      id: 'id' in payload ? payload.id : Date.now(),
+      isFavorite: payload.isFavorite ?? false,
     }
     books.value.unshift(newBook)
     persist()
@@ -45,9 +45,13 @@ export const useBooksStore = defineStore('books', () => {
 
   function updateBook(id: number, patch: Partial<BookItemModel>) {
     const idx = books.value.findIndex(b => b.id === id)
+    console.log('Updating book:', id, 'found at index:', idx, 'patch:', patch)
     if (idx >= 0) {
       books.value[idx] = { ...books.value[idx], ...patch }
+      console.log('Updated book:', books.value[idx])
       persist()
+    } else {
+      console.error('Book not found with id:', id)
     }
   }
 

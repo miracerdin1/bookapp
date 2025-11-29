@@ -5,11 +5,11 @@
         </SelectTrigger>
         <SelectContent class="bg-white border border-gray-200 rounded-md shadow-md border border-grayBorderLight">
             <SelectGroup>
-                <select-item v-if="!hideAll" :value="null" class="hover:bg-selectHover hover:text-secondary">
-                    All
-                </select-item>
+                <SelectItem v-if="!hideAll" :value="null" class="hover:bg-selectHover hover:text-secondary">
+                    Reading status
+                </SelectItem>
                 <select-item v-for="item in selectItems" :key="item.value" :value="item.value"
-                    class=" hover:bg-selectHover hover:text-secondary">
+                    class=" hover:bg-selectHover hover:text-secondary cursor-pointer">
                     {{ item.text }}
                 </select-item>
 
@@ -35,7 +35,7 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-    'update:modelValue': [value: EnumBookStatus]
+    'update:modelValue': [value: EnumBookStatus | null]
 }>()
 
 const selectedValue = computed({
@@ -45,16 +45,16 @@ const selectedValue = computed({
 
 const selectItems: SelectModel[] = [
     {
-        value: EnumBookStatus.Completed,
-        text: 'Completed'
+        value: EnumBookStatus.NotStarted,
+        text: 'To Read'
     },
     {
         value: EnumBookStatus.InProgress,
-        text: 'In Progress'
+        text: 'Reading'
     },
     {
-        value: EnumBookStatus.NotStarted,
-        text: 'Not Started'
+        value: EnumBookStatus.Completed,
+        text: 'Completed'
     }
 ]
 
