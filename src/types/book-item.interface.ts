@@ -9,6 +9,7 @@ export interface BookItemModel {
     explanation: string;
     user: string;
     readPage: number;
-    progress: string;
+    progress?: string;
+    isFavorite: boolean;
 
 }

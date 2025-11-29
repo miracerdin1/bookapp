@@ -1,7 +1,14 @@
 <template>
   <Card>
     <CardContent class="flex gap-[22px] flex-col h-full w-[200px]">
-      <img :src="item.img" alt="img" class="w-full h-[258px] object-cover" />
+      <div class="relative">
+        <img :src="item.img" alt="img" class="w-full h-[258px] object-cover" />
+        <span
+          class="absolute top-2 right-2 cursor-pointer w-10 h-10 bg-white rounded-full flex items-center justify-center">
+          <img :src="item.isFavorite ? redHeart : blackHeart" alt="favorite" class="w-6 h-6" />
+        </span>
+      </div>
+
       <div class="flex gap-[12px] px-2 flex-1" :class="isFavorite ? 'flex-row' : 'flex-col h-full justify-between'">
         <div class="flex justify-between">
           <span class="px-[10px] py-[6px] rounded-[4px] text-xs" :class="getStatusClass(item.status)">{{
@@ -32,8 +39,9 @@
 
 <script setup lang="ts">
 import { BookItemModel, EnumBookStatus } from '@/types';
-
 import Button from './ui/button/Button.vue';
+import redHeart from '@/assets/icons/red-heart.svg';
+import blackHeart from '@/assets/icons/black-heart.svg';
 
 const props = defineProps<{
   item: BookItemModel;

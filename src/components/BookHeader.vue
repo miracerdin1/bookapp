@@ -22,9 +22,8 @@
         <!-- Right Buttons -->
         <div class="flex items-center gap-4">
             <!-- Add Book Form -->
-            <button class="font-bold border-2 rounded-lg text-[14px] text-secondary py-[7px] px-4 border-secondary">
-                Add book form
-            </button>
+
+            <book-form-modal />
 
             <!-- Login Button -->
             <Button class="bg-secondary text-white px-6 py-2 rounded-lg text-[14px] hover:bg-buttonHover transition">
@@ -37,6 +36,7 @@
 <script setup lang="ts">
 import Logo from '@/assets/icons/Logo.svg';
 import Button from './ui/button/Button.vue';
+import BookFormModal from './BookFormModal.vue';
 
 const navItems = [
     { label: "About", active: false },
