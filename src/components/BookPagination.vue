@@ -12,6 +12,7 @@ import SelectContent from './ui/select/SelectContent.vue';
 import SelectTrigger from './ui/select/SelectTrigger.vue';
 import SelectGroup from './ui/select/SelectGroup.vue';
 import SelectValue from './ui/select/SelectValue.vue';
+import { Button } from '@/components/ui/button'
 </script>
 
 <template>

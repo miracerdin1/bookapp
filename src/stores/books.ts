@@ -1,62 +1,79 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
-import type { Ref } from 'vue'
+import { ref, computed } from 'vue'
+import type { BookItemModel } from '@/types'
+import { EnumBookStatus } from '@/types'
 
-export type Book = {
-  id: string,
-  title: string,
-  author?: string,
-  pages?: number,
-  status: 'todo'|'reading'|'done',
-  favorite?: boolean
-}
+const STORAGE_KEY = 'bookapp.books'
 
 export const useBooksStore = defineStore('books', () => {
-  const books: Ref<Book[]> = ref([])
-  function persist() {
-    try {
-      localStorage.setItem('bookapp.books', JSON.stringify(books.value))
-    } catch {}
-  }
+  const books = ref<BookItemModel[]>([])
+
+  // Load from localStorage on init
   function load() {
     try {
-      const raw = localStorage.getItem('bookapp.books')
-      if (raw) books.value = JSON.parse(raw)
-    } catch {}
+      const raw = localStorage.getItem(STORAGE_KEY)
+      if (raw) {
+        books.value = JSON.parse(raw)
+      }
+    } catch (error) {
+      console.error('Failed to load books:', error)
+    }
   }
-  function addBook(payload: Partial<Book>) {
-    const id = String(Date.now())
-    books.value.unshift({
-      id,
-      title: payload.title || 'Untitled',
-      author: payload.author || '',
-      pages: payload.pages,
-      status: (payload.status as any) || 'todo',
-      favorite: false
-    })
+
+  // Persist to localStorage (debounced for performance)
+  let persistTimer: ReturnType<typeof setTimeout> | null = null
+  function persist() {
+    if (persistTimer) clearTimeout(persistTimer)
+    persistTimer = setTimeout(() => {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(books.value))
+      } catch (error) {
+        console.error('Failed to save books:', error)
+      }
+    }, 300)
+  }
+
+  function addBook(payload: Omit<BookItemModel, 'id'>) {
+    const newBook: BookItemModel = {
+      ...payload,
+      id: Date.now(),
+      isFavorite: false,
+    }
+    books.value.unshift(newBook)
     persist()
   }
-  function updateBook(id: string, patch: Partial<Book>) {
-    const idx = books.value.findIndex(b=>b.id===id)
-    if (idx>=0) {
+
+  function updateBook(id: number, patch: Partial<BookItemModel>) {
+    const idx = books.value.findIndex(b => b.id === id)
+    if (idx >= 0) {
       books.value[idx] = { ...books.value[idx], ...patch }
       persist()
     }
   }
-  function removeBook(id: string) {
-    books.value = books.value.filter(b=>b.id!==id)
+
+  function removeBook(id: number) {
+    books.value = books.value.filter(b => b.id !== id)
     persist()
   }
-  function toggleFavorite(id: string) {
-    const b = books.value.find(x=>x.id===id)
-    if (!b) return
-    b.favorite = !b.favorite
-    // move to front if favorite
-    if (b.favorite) {
-      books.value = [b, ...books.value.filter(x=>x.id!==id)]
+
+  function toggleFavorite(id: number) {
+    const book = books.value.find(b => b.id === id)
+    if (book) {
+      book.isFavorite = !book.isFavorite
+      persist()
     }
-    persist()
   }
-  const favorites = ref([] as Book[])
-  return { books, favorites, addBook, updateBook, removeBook, toggleFavorite, load }
+
+  // Computed for favorites (cached)
+  const favorites = computed(() => books.value.filter(b => b.isFavorite))
+
+  return {
+    books,
+    favorites,
+    addBook,
+    updateBook,
+    removeBook,
+    toggleFavorite,
+    load
+  }
 })

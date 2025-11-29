@@ -11,11 +11,8 @@ const props = withDefaults(defineProps<InputGroupButtonProps>(), {
 </script>
 
 <template>
-  <Button
-    :data-size="props.size"
-    :variant="props.variant"
-    :class="cn(inputGroupButtonVariants({ size: props.size }), props.class)"
-  >
+  <Button :data-size="props.size" :variant="props.variant"
+    :class="cn(inputGroupButtonVariants({ size: props.size }), props.class)">
     <slot />
   </Button>
 </template>
