@@ -1,7 +1,7 @@
 Kısa açıklama
 -------------
 BookApp; Vue 3, Vite ve TypeScript kullanılarak oluşturulmuş basit bir kitap takip uygulamasıdır. Hızlı geliştirme için Vue 3,  Vite, TypeScript,  Pinia, Tailwind, SCSS ile birlikte gelir.
-Proje Link: https://sunny-pasca-1269f4.netlify.app/
+Proje Link: [Reperi book app](https://book-app-reperi-ai.netlify.app/)
 
 Kurulum ve çalıştırma
 ---------------------
