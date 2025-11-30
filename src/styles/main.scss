@@ -4,3 +4,36 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --primary: theme('colors.primary');
+        --secondary: theme('colors.secondary');
+        --text-primary: theme('colors.textPrimary');
+        --text-secondary: theme('colors.textSecondary');
+        --text-third: theme('colors.textThird');
+        --text-forth: theme('colors.textForth');
+        --gray-light: theme('colors.grayLight');
+        --gray-medium: theme('colors.grayMedium');
+        --gray-border-light: theme('colors.grayBorderLight');
+        --gray: theme('colors.gray');
+        --divider: theme('colors.divider');
+        --danger: theme('colors.danger');
+        --completed: theme('colors.completed');
+        --reading: theme('colors.reading');
+        --to-read: theme('colors.toRead');
+        --button-hover: theme('colors.buttonHover');
+        --select-hover: theme('colors.selectHover');
+        --hover-arrow: theme('colors.hoverArrow');
+        --toast-success: theme('colors.toastSuccess');
+        --toast-text: theme('colors.toastText');
+        --black: theme('colors.black');
+        --dark-black: theme('colors.darkBlack');
+        --dark-scroll: theme('colors.darkScroll');
+        --trash: theme('colors.trash');
+    }
+}
