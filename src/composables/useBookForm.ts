@@ -15,7 +15,7 @@ export const DEFAULT_FORM_DATA: Partial<BookItemModel> = {
 export function useBookForm() {
     const booksStore = useBooksStore()
 
-    function normalizeBook(data: Partial<BookItemModel>): BookItemModel {
+    const normalizeBook = (data: Partial<BookItemModel>): BookItemModel => {
         return {
             id: data.id ?? Date.now(),
             title: data.title ?? "",
@@ -32,7 +32,7 @@ export function useBookForm() {
             isFavorite: data.isFavorite ?? false,
         }
     }
-    function addBook(data: Partial<BookItemModel>) {
+    const addBook = (data: Partial<BookItemModel>) => {
         const book = normalizeBook(data)
         booksStore.addBook(book)
         toast({
@@ -41,7 +41,7 @@ export function useBookForm() {
         })
     }
 
-    function updateBook(data: Partial<BookItemModel>) {
+    const updateBook = (data: Partial<BookItemModel>) => {
         const book = normalizeBook(data)
         booksStore.updateBook(book.id, book)
         toast({
@@ -50,7 +50,7 @@ export function useBookForm() {
         })
     }
 
-    function deleteBook(id: number) {
+    const deleteBook = (id: number) => {
         booksStore.removeBook(id)
         toast({
             description: "Book has been successfully removed from list.",

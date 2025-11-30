@@ -42,7 +42,7 @@ const isTitleInvalid = computed(() => {
     return !formData.value.title?.trim()?.length && !!titleError.value
 })
 
-function handleImageUpload(e: Event) {
+const handleImageUpload = (e: Event) => {
     const target = e.target as HTMLInputElement
     const file = target.files?.[0]
 
@@ -57,7 +57,7 @@ function handleImageUpload(e: Event) {
     }
 }
 
-function handleSubmit(e: Event) {
+const handleSubmit = (e: Event) => {
     e.preventDefault();
     if (!formData.value.title?.trim()) {
         titleError.value = 'Book title is required'
@@ -72,7 +72,7 @@ function handleSubmit(e: Event) {
     emit('update:open', false)
 }
 
-function resetForm() {
+const resetForm = () => {
     formData.value = { ...DEFAULT_FORM_DATA }
     imagePreview.value = bookImg
 }
@@ -134,7 +134,7 @@ watch(() => props.formData, (val) => {
                 </div>
                 <DialogFooter>
                     <Button type="submit"
-                        class="w-full bg-secondary text-white px-6 py-2 rounded-lg text-[14px] hover:bg-buttonHover  dark:text-neutral-100"
+                        class="w-full bg-secondary text-white px-6 py-2 rounded-lg text-sm hover:bg-buttonHover  dark:text-neutral-100"
                         @click="handleSubmit">
                         {{ booAddButton }}
                     </Button>

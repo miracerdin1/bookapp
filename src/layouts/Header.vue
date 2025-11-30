@@ -1,5 +1,6 @@
 <template>
-    <header class="h-[105px] custom-header flex items-center justify-between bg-white dark:bg-black">
+    <header
+        class="h-[105px] flex items-center justify-between bg-white dark:bg-black px-4 sm:px-6 md:px-10 lg:px-[114px] flex-col md:flex-row">
         <div class="flex items-center gap-10 ">
             <div class="flex items-center gap-3 cursor-pointer" @click="goHome">
                 <img :src="Logo" alt="Bookapp Logo" class="w-size-md h-size-lg" />
@@ -21,12 +22,12 @@
         <div class="flex items-center gap-4">
             <DarkModeToggle />
             <Button variant="outline"
-                class="font-bold border-2 rounded-lg text-[14px] text-secondary py-[7px] px-4 border-secondary"
+                class="font-bold border-2 rounded-lg text-sm text-secondary py-[7px] px-4 border-secondary"
                 @click="isModalOpen = true">
                 Add book form
             </Button>
             <book-form-modal v-if="isModalOpen" v-model:open="isModalOpen" />
-            <Button class="bg-secondary text-white px-6 py-2 rounded-lg text-[14px] hover:bg-buttonHover transition">
+            <Button class="bg-secondary text-white px-6 py-2 rounded-lg text-sm hover:bg-buttonHover transition">
                 Login
             </Button>
         </div>
@@ -50,7 +51,7 @@ const navItems = [
 
 const router = useRouter()
 
-function goHome() {
+const goHome = () => {
     router.push('/')
 }
 </script>
@@ -60,8 +61,6 @@ function goHome() {
 
 .custom-header {
     border-bottom: 1px solid $border-light;
-    padding: 26px 114px;
-    height: 105px;
     width: 100%;
 }
 
