@@ -58,9 +58,33 @@ export function useBookForm() {
         })
     }
 
+    const applyStatusLogic = (
+        status: EnumBookStatus,
+        totalPage: number | undefined,
+        formData: Partial<BookItemModel>,
+        isDisabled: { value: boolean }
+    ) => {
+        switch (status) {
+            case EnumBookStatus.Completed:
+                formData.readPage = totalPage ?? 0
+                isDisabled.value = true
+                break
+
+            case EnumBookStatus.NotStarted:
+                formData.readPage = 0
+                isDisabled.value = true
+                break
+
+            default:
+                isDisabled.value = false
+                break
+        }
+    }
+
     return {
         addBook,
         updateBook,
-        deleteBook
+        deleteBook,
+        applyStatusLogic
     }
 }
