@@ -7,8 +7,8 @@ const TOAST_REMOVE_DELAY = 1000000
 
 export type StringOrVNode
   = | string
-    | VNode
-    | (() => VNode)
+  | VNode
+  | (() => VNode)
 
 type ToasterToast = ToastProps & {
   id: string
@@ -26,7 +26,7 @@ const actionTypes = {
 
 let count = 0
 
-function genId() {
+const genId = () => {
   count = (count + 1) % Number.MAX_VALUE
   return count.toString()
 }
@@ -57,7 +57,7 @@ interface State {
 
 const toastTimeouts = new Map<string, ReturnType<typeof setTimeout>>()
 
-function addToRemoveQueue(toastId: string) {
+const addToRemoveQueue = (toastId: string) => {
   if (toastTimeouts.has(toastId))
     return
 
@@ -76,7 +76,7 @@ const state = ref<State>({
   toasts: [],
 })
 
-function dispatch(action: Action) {
+const dispatch = (action: Action) => {
   switch (action.type) {
     case actionTypes.ADD_TOAST:
       state.value.toasts = [action.toast, ...state.value.toasts].slice(0, TOAST_LIMIT)
@@ -103,9 +103,9 @@ function dispatch(action: Action) {
       state.value.toasts = state.value.toasts.map(t =>
         t.id === toastId || toastId === undefined
           ? {
-              ...t,
-              open: false,
-            }
+            ...t,
+            open: false,
+          }
           : t,
       )
       break
@@ -121,7 +121,7 @@ function dispatch(action: Action) {
   }
 }
 
-function useToast() {
+const useToast = () => {
   return {
     toasts: computed(() => state.value.toasts),
     toast,
@@ -131,7 +131,7 @@ function useToast() {
 
 type Toast = Omit<ToasterToast, "id">
 
-function toast(props: Toast) {
+const toast = (props: Toast) => {
   const id = genId()
 
   const update = (props: ToasterToast) =>

@@ -31,7 +31,11 @@ module.exports = {
 				hoverArrow: "#EBEFF1",
 				toastSuccess: "#E3FBF2",
 				toastText: "#097C69",
-				black: "#1A1A1A"
+				black: "#1A1A1A",
+				darkBlack: "#333333",
+				darkScroll: "#666666",
+				trash: "#ff0000"
+
 
 			},
 			fontFamily: {

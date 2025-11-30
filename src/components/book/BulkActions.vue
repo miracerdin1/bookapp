@@ -7,7 +7,7 @@ import SelectValue from '../ui/select/SelectValue.vue';
 </script>
 
 <template>
-    <div class="flex justify-between items-center ">
+    <div class="flex flex-col gap-4 md:flex-row md:justify-between md:items-center">
         <div class="flex gap-3 items-center">
             <Select class="border-grayBorderLight ">
                 <SelectTrigger class="w-[180px] rounded-lg border-grayBorderLight w-[200px] h-[44px]">
@@ -23,7 +23,7 @@ import SelectValue from '../ui/select/SelectValue.vue';
             <span class="text-textThird">Selected 3 entries</span>
         </div>
         <div class="flex flex-col gap-3">
-            <div class="flex gap-3 items-center justify-end">
+            <div class="flex gap-3 items-center md:justify-end">
                 <span class="text-textThird">Show</span>
                 <Select class="border-grayBorderLight ">
                     <SelectTrigger class="w-[180px] rounded-lg border-grayBorderLight w-[70px] h-[44px]">

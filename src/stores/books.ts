@@ -8,8 +8,7 @@ const STORAGE_KEY = 'bookapp.books'
 export const useBooksStore = defineStore('books', () => {
   const books = ref<BookItemModel[]>([])
 
-  // Load from localStorage on init
-  function load() {
+  const load = () => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY)
       if (raw) {
@@ -20,9 +19,8 @@ export const useBooksStore = defineStore('books', () => {
     }
   }
 
-  // Persist to localStorage (debounced for performance)
   let persistTimer: ReturnType<typeof setTimeout> | null = null
-  function persist() {
+  const persist = () => {
     if (persistTimer) clearTimeout(persistTimer)
     persistTimer = setTimeout(() => {
       try {
@@ -33,7 +31,7 @@ export const useBooksStore = defineStore('books', () => {
     }, 300)
   }
 
-  function addBook(payload: Omit<BookItemModel, 'id'> | BookItemModel) {
+  const addBook = (payload: Omit<BookItemModel, 'id'> | BookItemModel) => {
     const newBook: BookItemModel = {
       ...payload,
       id: 'id' in payload ? payload.id : Date.now(),
@@ -43,7 +41,7 @@ export const useBooksStore = defineStore('books', () => {
     persist()
   }
 
-  function updateBook(id: number, patch: Partial<BookItemModel>) {
+  const updateBook = (id: number, patch: Partial<BookItemModel>) => {
     const idx = books.value.findIndex(b => b.id === id)
     console.log('Updating book:', id, 'found at index:', idx, 'patch:', patch)
     if (idx >= 0) {
@@ -55,12 +53,12 @@ export const useBooksStore = defineStore('books', () => {
     }
   }
 
-  function removeBook(id: number) {
+  const removeBook = (id: number) => {
     books.value = books.value.filter(b => b.id !== id)
     persist()
   }
 
-  function toggleFavorite(id: number) {
+  const toggleFavorite = (id: number) => {
     const book = books.value.find(b => b.id === id)
     if (book) {
       book.isFavorite = !book.isFavorite
@@ -68,7 +66,6 @@ export const useBooksStore = defineStore('books', () => {
     }
   }
 
-  // Computed for favorites (cached)
   const favorites = computed(() => books.value.filter(b => b.isFavorite))
 
   return {

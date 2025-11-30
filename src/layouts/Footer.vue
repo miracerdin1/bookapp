@@ -1,6 +1,6 @@
 <template>
     <div class="border-t border-t-grayBorderLight py-[40px] px-[114px] dark:bg-black dark:text-textSecondary">
-        <div class="flex justify-between items-start">
+        <div class="flex flex-col items-start md:gap-10 md:flex-row md:justify-between md:items-start">
 
             <div class="flex items-center gap-3 cursor-pointer">
                 <img :src="Logo" alt="Bookapp Logo" class="w-size-md h-size-lg" />
@@ -12,7 +12,7 @@
             <div class="flex gap-4 flex-col">
                 <div class="font-bold text-lg">Learn More</div>
                 <div class="flex flex-col ">
-                    <div v-for="value in learnMore"
+                    <div v-for="value in footerLinks.learnMore"
                         class="text-textForth text-sm leading-[30px] font-normal dark:text-textSecondary">
                         {{ value }}
                     </div>
@@ -20,10 +20,10 @@
                 </div>
             </div>
 
-            <div class="flex flex-col gap-[16px]">
+            <div class="flex flex-col gap-4">
                 <div class="font-bold text-lg">Menu</div>
                 <div class="flex flex-col ">
-                    <div v-for="value in menu"
+                    <div v-for="value in footerLinks.menu"
                         class="text-textForth text-sm leading-[30px] font-normal dark:text-textSecondary">
                         {{ value }}
                     </div>
@@ -31,7 +31,7 @@
                 </div>
             </div>
 
-            <div class="flex flex-col gap-[16px]">
+            <div class="flex flex-col gap-4">
                 <div class="font-bold text-lg">Social</div>
                 <div class="flex gap-[48px]">
                     <img src="@/assets/icons/facebook.svg" />
@@ -43,12 +43,13 @@
 
 
         </div>
-        <div class="border-t border-grayBorderLight flex justify-between h-[54px] flex items-end">
+        <div
+            class="font-roboto border-t border-grayBorderLight text-grayMedium text-sm leading-[150%] flex flex-col items-start gap-3 md:flex-row md:justify-between md:items-end h-[54px]">
             <div>
                 <a href="#">
                     Commercial Terms & Conditions
                 </a>
-                <a href="#" class="font-roboto text-gray-medium text-sm font-small">
+                <a href="#">
                     Privacy Policy
                 </a>
             </div>
@@ -59,31 +60,5 @@
 </template>
 <script lang="ts" setup>
 import Logo from '@/assets/icons/Logo.svg';
-
-const learnMore = [
-    'About Bookshop',
-
-    'Press Releases',
-
-    'Environment',
-
-    'Jobs',
-
-    'Privacy Policy',
-
-    'Contact Us',
-]
-const menu = [
-    'Ebooks',
-
-    'Gift Cards',
-
-    'Special Offers',
-
-    'New Books',
-
-    'Best Seller',
-
-]
-
+import { footerLinks } from '@/constants';
 </script>

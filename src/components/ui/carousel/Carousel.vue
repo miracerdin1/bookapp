@@ -21,32 +21,28 @@ defineExpose({
   scrollPrev,
 })
 
-function onKeyDown(event: KeyboardEvent) {
+const onKeyDown = (event: KeyboardEvent) => {
   const prevKey = props.orientation === "vertical" ? "ArrowUp" : "ArrowLeft"
   const nextKey = props.orientation === "vertical" ? "ArrowDown" : "ArrowRight"
 
-  if (event.key === prevKey) {
-    event.preventDefault()
-    scrollPrev()
+  switch (event.key) {
+    case prevKey:
+      event.preventDefault()
+      scrollPrev()
+      break
 
-    return
-  }
-
-  if (event.key === nextKey) {
-    event.preventDefault()
-    scrollNext()
+    case nextKey:
+      event.preventDefault()
+      scrollNext()
+      break
   }
 }
+
 </script>
 
 <template>
-  <div
-    :class="cn('relative', props.class)"
-    role="region"
-    aria-roledescription="carousel"
-    tabindex="0"
-    @keydown="onKeyDown"
-  >
+  <div :class="cn('relative', props.class)" role="region" aria-roledescription="carousel" tabindex="0"
+    @keydown="onKeyDown">
     <slot :can-scroll-next :can-scroll-prev :carousel-api :carousel-ref :orientation :scroll-next :scroll-prev />
   </div>
 </template>
