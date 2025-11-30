@@ -1,16 +1,17 @@
 <script setup lang="ts">
 import { computed, shallowRef, watch } from 'vue'
 import BookItem from './BookItem.vue'
-import InputGroupInput from './ui/input-group/InputGroupInput.vue'
+import InputGroupInput from '../ui/input-group/InputGroupInput.vue'
 import searchIcon from '@/assets/icons/search.svg'
 import BookPagination from './BookPagination.vue'
 import BookStatusSelect from './BookStatusSelect.vue'
-import InputGroup from './ui/input-group/InputGroup.vue'
+import InputGroup from '../ui/input-group/InputGroup.vue'
 import { useBooksStore } from '@/stores/books'
 import { EnumBookStatus } from '@/types'
-import NoSearchResult from './NoSearchResult.vue'
+import NoSearchResult from '../NoSearchResult.vue'
 import BulkActions from './BulkActions.vue'
 import { useBooks } from '@/composables/useBooks'
+import SummaryCards from './SummaryCards.vue'
 
 const booksStore = useBooksStore()
 const { totalBooks, completedBooks, inProgressBooks, notStartedBooks } = useBooks()
@@ -26,9 +27,6 @@ const paginatedBooks = computed(() => {
   return filteredBooks.value.slice(start, end)
 })
 
-function handlePageChange(page: number) {
-  currentPage.value = page
-}
 
 const filteredBooks = computed(() => {
   let list = booksStore.books
@@ -46,18 +44,18 @@ const filteredBooks = computed(() => {
 
   return list
 })
+
+function handlePageChange(page: number) {
+  currentPage.value = page
+}
+
 </script>
 <template>
   <div class="flex flex-col max-w-[1360px] mt-[60px] gap-5">
     <div class="flex justify-between">
       <div class="text-2xl font-bold dark:text-textSecondary">
         <div>Books</div>
-        <div class="flex gap-4 mt-2 dark:text-textSecondary text-sm">
-          <span class="pr-3 py-1 bg-gray-200 rounded">Total: {{ totalBooks }}</span>
-          <span class="px-3 py-1 bg-green-200 rounded">Completed: {{ completedBooks }}</span>
-          <span class="px-3 py-1 bg-blue-200 rounded">Reading: {{ inProgressBooks }}</span>
-          <span class="px-3 py-1 bg-yellow-200  rounded">To Read: {{ notStartedBooks }}</span>
-        </div>
+        <summary-cards />
       </div>
       <div class="flex gap-6">
         <InputGroup class="w-[350px] h-[44px] border-grayBorderLight text-textThird">

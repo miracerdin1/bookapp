@@ -1,5 +1,5 @@
 <template>
-  <Card class="border-none">
+  <Card>
     <CardContent class="p-0 flex gap-[22px] h-full dark:text-textSecondary"
       :class="isFavorite ? 'flex-row' : 'flex-col w-[200px]'">
       <div class="relative">
@@ -46,19 +46,21 @@
 
 <script setup lang="ts">
 import { BookItemModel, EnumBookStatus } from '@/types';
-import Button from './ui/button/Button.vue';
+import Button from '../ui/button/Button.vue';
 import redHeart from '@/assets/icons/red-heart.svg';
 import blackHeart from '@/assets/icons/black-heart.svg';
-import Card from './ui/card/Card.vue';
-import CardContent from './ui/card/CardContent.vue';
+import Card from '../ui/card/Card.vue';
+import CardContent from '../ui/card/CardContent.vue';
 import BookFormModal from './BookFormModal.vue';
 import { ref, shallowRef, watch } from 'vue';
 import { useBooksStore } from '@/stores/books';
-import IconThrash from './icons/IconThrash.vue';
+import IconThrash from '../icons/IconThrash.vue';
 import { useBookForm } from '@/composables/useBookForm';
+import { useBookStatus } from "@/composables/useBookStatus";
 
 const booksStore = useBooksStore()
 const { deleteBook } = useBookForm()
+const { getStatusClass, getStatusText } = useBookStatus();
 
 const props = defineProps<{
   item: BookItemModel;
@@ -80,20 +82,6 @@ function onFavorite(id: number) {
 const deleteItem = () => {
   deleteBook(props.item.id)
 }
-
-const getStatusClass = (status: EnumBookStatus) => {
-  if (status === EnumBookStatus.Completed) return 'bg-completed';
-  if (status === EnumBookStatus.InProgress) return 'bg-reading text-white';
-  if (status === EnumBookStatus.NotStarted) return 'bg-toRead text-white';
-  return '';
-};
-
-const getStatusText = (status: EnumBookStatus) => {
-  if (status === EnumBookStatus.Completed) return 'Completed';
-  if (status === EnumBookStatus.InProgress) return 'Reading';
-  if (status === EnumBookStatus.NotStarted) return 'To Read';
-  return '';
-};
 
 watch(
   () => props.item,

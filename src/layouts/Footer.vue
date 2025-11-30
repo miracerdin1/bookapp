@@ -1,5 +1,5 @@
 <template>
-    <div class="border-t border-grayBorderLight py-[40px] px-[114px] mt-[120px] dark:text-textSecondary">
+    <div class="border-t border-t-grayBorderLight py-[40px] px-[114px] dark:bg-black dark:text-textSecondary">
         <div class="flex justify-between items-start">
 
             <div class="flex items-center gap-3 cursor-pointer">

@@ -1,17 +1,13 @@
 <template>
-  <div class="bg-white dark:bg-black rounded-lg shadow">
+  <div class="bg-white dark:bg-black shadow pb-[120px]">
     <divider></divider>
     <favorite-books class="mx-auto" />
     <book-list class="mx-auto" />
-    <book-footer />
   </div>
 </template>
 
 <script setup lang="ts">
-import BookList from '@/components/BookList.vue'
+import BookList from '@/components/book/BookList.vue';
 import Divider from '@/components/Divider.vue'
-import FavoriteBooks from '@/components/FavoriteBooks.vue'
-import BookFooter from '@/components/BookFooter.vue'
-
-
+import FavoriteBooks from '@/components/book/FavoriteBooks.vue'
 </script>

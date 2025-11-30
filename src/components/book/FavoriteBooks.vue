@@ -1,5 +1,6 @@
 <template>
-    <div class="p-6 gap-5 rounded-radius bg-gray dark:bg-[#333333] max-w-[1360px] mt-[40px] dark:text-textSecondary">
+    <div
+        class="flex flex-col p-6 gap-5 rounded-radius bg-gray dark:bg-[#333333] max-w-[1360px] mt-[40px] dark:text-textSecondary">
         <div class="flex">
             <div class="font-inter font-bold text-xl dark:text-textSecondary">Favorite Books</div>
             <div class="ml-auto flex items-center gap-3 ">
@@ -27,7 +28,8 @@
                     <CarouselContent class="relative w-full flex gap-[32px]" :opts="{
                         align: 'start',
                     }">
-                        <CarouselItem v-for="item in bookItems" class="basis-[calc(50%-16px)] flex-shrink-0">
+                        <CarouselItem v-for="item in bookItems"
+                            class="basis-full sm:basis-full lg:basis-[calc(50%-16px)] flex-shrink-0">
                             <div class="p-1">
                                 <book-item :item="item" isFavorite />
                             </div>
