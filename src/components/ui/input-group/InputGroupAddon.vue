@@ -11,7 +11,7 @@ const props = withDefaults(defineProps<{
   align: "inline-start",
 })
 
-function handleInputGroupAddonClick(e: MouseEvent) {
+const handleInputGroupAddonClick = (e: MouseEvent) => {
   const currentTarget = e.currentTarget as HTMLElement | null
   const target = e.target as HTMLElement | null
   if (target && target.closest("button")) {
@@ -24,13 +24,8 @@ function handleInputGroupAddonClick(e: MouseEvent) {
 </script>
 
 <template>
-  <div
-    role="group"
-    data-slot="input-group-addon"
-    :data-align="props.align"
-    :class="cn(inputGroupAddonVariants({ align: props.align }), props.class)"
-    @click="handleInputGroupAddonClick"
-  >
+  <div role="group" data-slot="input-group-addon" :data-align="props.align"
+    :class="cn(inputGroupAddonVariants({ align: props.align }), props.class)" @click="handleInputGroupAddonClick">
     <slot />
   </div>
 </template>

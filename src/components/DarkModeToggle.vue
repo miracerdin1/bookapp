@@ -1,14 +1,14 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
 const saved = localStorage.getItem("theme");
 
 const isDark = ref(saved === "dark");
 
-if (isDark.value) {
-    document.documentElement.classList.add("dark");
-} else {
-    document.documentElement.classList.remove("dark");
+const applyThemeClass = () => {
+    isDark.value ?
+        document.documentElement.classList.add("dark") : document.documentElement.classList.remove("dark");
+
 }
 
 const toggleTheme = () => {
@@ -22,6 +22,10 @@ const toggleTheme = () => {
         localStorage.setItem("theme", "light");
     }
 };
+
+onMounted(() => {
+    applyThemeClass()
+})
 </script>
 
 <template>

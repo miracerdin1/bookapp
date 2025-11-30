@@ -45,25 +45,25 @@ const filteredBooks = computed(() => {
   return list
 })
 
-function handlePageChange(page: number) {
+const handlePageChange = (page: number) => {
   currentPage.value = page
 }
 
 </script>
 <template>
-  <div class="flex flex-col max-w-[1360px] mt-[60px] gap-5">
+  <div class="flex flex-col max-w-[1360px] mt-[60px] gap-5 sm:px-6 xl:px-0 mx-auto w-full">
     <div class="flex justify-between">
-      <div class="text-2xl font-bold dark:text-textSecondary">
-        <div>Books</div>
-        <summary-cards />
-      </div>
+
+      <div class="text-2xl font-bold dark:text-textSecondary">Books</div>
       <div class="flex gap-6">
-        <InputGroup class="w-[350px] h-[44px] border-grayBorderLight text-textThird">
+        <InputGroup class="max-w-[350px] h-[44px] border-grayBorderLight text-textThird">
           <InputGroupInput v-model="searchText" placeholder="Search" :icon="searchIcon" />
         </InputGroup>
         <book-status-select v-model="selectedStatus" />
       </div>
+
     </div>
+    <div><summary-cards /></div>
     <div v-if="paginatedBooks?.length" class="flex flex-wrap gap-8">
       <book-item v-for="item in paginatedBooks" :key="item.id" :item="item" />
     </div>
