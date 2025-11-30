@@ -12,11 +12,11 @@ import {
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import BookStatusSelect from './BookStatusSelect.vue'
-import { BookItemModel } from '@/types'
+import {BookItemModel, EnumBookStatus} from '@/types'
 import bookImg from '@/assets/images/Sun Rise Of The Reaping.png'
 import { DEFAULT_FORM_DATA, useBookForm } from '@/composables/useBookForm'
 
-const { addBook, updateBook } = useBookForm()
+const { addBook, updateBook, applyStatusLogic } = useBookForm()
 
 const props = defineProps<{
     open?: boolean,
@@ -27,6 +27,8 @@ const emit = defineEmits<{
     'update:open': [value: boolean]
 }>()
 
+const isReadPageDisabled = shallowRef(false)
+
 const formData = ref<Partial<BookItemModel>>({
     ...DEFAULT_FORM_DATA
 })
@@ -34,7 +36,7 @@ const formData = ref<Partial<BookItemModel>>({
 const imagePreview = shallowRef<string>(bookImg)
 const titleError = shallowRef('')
 
-const booAddButton = computed(() =>
+const bookActionLabel = computed(() =>
     props.formData?.id ? 'Update book info' : 'Add book'
 )
 
@@ -85,7 +87,18 @@ watch(() => props.formData, (val) => {
     }
 }, { immediate: true })
 
-
+watch(
+    () => formData.value.status,
+    (newStatus) => {
+      applyStatusLogic(
+          newStatus as EnumBookStatus,
+          formData.value.totalPage,
+          formData.value,
+          isReadPageDisabled
+      )
+    },
+    { immediate: true }
+)
 </script>
 
 <template>
@@ -129,6 +142,7 @@ watch(() => props.formData, (val) => {
                         class="rounded-lg border h-11 border-grayBorderLight text-textThird dark:bg-neutral-900 dark:text-neutral-100" />
                     <book-status-select v-model="formData.status" hideAll />
                     <Input id="readPage" v-model.number="formData.readPage" type="number"
+                           :disabled="isReadPageDisabled"
                         placeholder="Number of pages read"
                         class="rounded-lg border h-11 border-grayBorderLight text-textThird dark:bg-neutral-900 dark:text-neutral-100" />
                 </div>
@@ -136,7 +150,7 @@ watch(() => props.formData, (val) => {
                     <Button type="submit"
                         class="w-full bg-secondary text-white px-6 py-2 rounded-lg text-sm hover:bg-buttonHover  dark:text-neutral-100"
                         @click="handleSubmit">
-                        {{ booAddButton }}
+                        {{ bookActionLabel }}
                     </Button>
                 </DialogFooter>
             </DialogContent>
