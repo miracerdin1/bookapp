@@ -19,16 +19,12 @@ export const useBooksStore = defineStore('books', () => {
     }
   }
 
-  let persistTimer: ReturnType<typeof setTimeout> | null = null
   const persist = () => {
-    if (persistTimer) clearTimeout(persistTimer)
-    persistTimer = setTimeout(() => {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(books.value))
-      } catch (error) {
-        console.error('Failed to save books:', error)
-      }
-    }, 300)
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(books.value))
+    } catch (error) {
+      console.error('Failed to save books:', error)
+    }
   }
 
   const addBook = (payload: Omit<BookItemModel, 'id'> | BookItemModel) => {
@@ -43,10 +39,8 @@ export const useBooksStore = defineStore('books', () => {
 
   const updateBook = (id: number, patch: Partial<BookItemModel>) => {
     const idx = books.value.findIndex(b => b.id === id)
-    console.log('Updating book:', id, 'found at index:', idx, 'patch:', patch)
     if (idx >= 0) {
       books.value[idx] = { ...books.value[idx], ...patch }
-      console.log('Updated book:', books.value[idx])
       persist()
     } else {
       console.error('Book not found with id:', id)
