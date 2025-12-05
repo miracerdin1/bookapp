@@ -51,7 +51,7 @@ watch(
 
 <template>
   <Card>
-    <CardContent class="p-0 flex gap-[22px] h-full dark:text-textSecondary"
+    <CardContent class="p-0 flex gap-[22px] h-full dark:text-primary"
       :class="isFavorite ? 'flex-row' : 'flex-col w-[200px]'">
       <div class="relative">
         <img :src="item.img" alt="img" class="w-full h-[258px] object-cover" />
@@ -86,7 +86,8 @@ watch(
               Update Info
             </Button>
 
-            <icon-thrash @click="deleteItem" />
+            <icon-thrash @click="deleteItem" class="text-red-500"/>
+
           </div>
         </div>
       </div>
