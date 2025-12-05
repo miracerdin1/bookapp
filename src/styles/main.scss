@@ -5,10 +5,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 @layer base {
     :root {
         --primary: theme('colors.primary');
@@ -36,4 +32,25 @@
         --dark-scroll: theme('colors.darkScroll');
         --trash: theme('colors.trash');
     }
+  :root[data-theme='dark'] {
+    --primary: #111827;
+    --text-primary: #f9fafb;
+    --button-hover: #1f2937;
+    --toast-success: #064e3b;
+    --toast-text: #ecfeff;
+  }
+
+  @layer utilities {
+    .text-primary-var {
+      color: var(--primary);
+    }
+    .bg-primary-var {
+      background-color: var(--text-primary);
+    }
+    .hover-bg-button {
+      &:hover {
+        background-color: var(--button-hover);
+      }
+    }
+  }
 }

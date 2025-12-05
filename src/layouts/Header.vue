@@ -1,6 +1,6 @@
 <template>
     <header
-        class="h-[105px] flex items-center justify-between bg-white dark:bg-black px-4 sm:px-6 md:px-10 lg:px-[114px] flex-col md:flex-row">
+        class="sticky border-b border-b-grayLight top-0 z-50 h-[105px] flex items-center justify-between bg-white dark:bg-black px-4 sm:px-6 md:px-10 lg:px-[114px] flex-col md:flex-row">
         <div class="flex items-center gap-10 ">
             <div class="flex items-center gap-3 cursor-pointer" @click="goHome">
                 <img :src="Logo" alt="Bookapp Logo" class="w-size-md h-size-lg" />

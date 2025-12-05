@@ -19,11 +19,11 @@ const { totalBooks, completedBooks, inProgressBooks, notStartedBooks } = useBook
 const searchText = shallowRef('')
 const selectedStatus = shallowRef<EnumBookStatus | null>(null);
 const currentPage = shallowRef(1)
-const itemsPerPage = 12;
+const itemsPerPage = shallowRef(12);
 
 const paginatedBooks = computed(() => {
-  const start = (currentPage.value - 1) * itemsPerPage
-  const end = start + itemsPerPage
+  const start = (currentPage.value - 1) * itemsPerPage.value
+  const end = start + itemsPerPage.value
   return filteredBooks.value.slice(start, end)
 })
 
@@ -67,7 +67,7 @@ const handlePageChange = (page: number) => {
     <div v-if="paginatedBooks?.length" class="flex flex-wrap gap-8">
       <book-item v-for="item in paginatedBooks" :key="item.id" :item="item" />
     </div>
-    <bulk-actions v-if="filteredBooks?.length" :items="filteredBooks" />
+    <bulk-actions v-if="filteredBooks?.length"   v-model:showCount="itemsPerPage" :items="filteredBooks" />
     <no-search-result v-else />
 
     <book-pagination v-if="filteredBooks.length" :items-per-page="itemsPerPage" :items="filteredBooks"

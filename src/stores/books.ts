@@ -27,15 +27,10 @@ export const useBooksStore = defineStore('books', () => {
     }
   }
 
-  const addBook = (payload: Omit<BookItemModel, 'id'> | BookItemModel) => {
-    const newBook: BookItemModel = {
-      ...payload,
-      id: 'id' in payload ? payload.id : Date.now(),
-      isFavorite: payload.isFavorite ?? false,
+    const addBook = (payload: BookItemModel) => {
+        books.value.unshift(payload)
+        persist()
     }
-    books.value.unshift(newBook)
-    persist()
-  }
 
   const updateBook = (id: number, patch: Partial<BookItemModel>) => {
     const idx = books.value.findIndex(b => b.id === id)
